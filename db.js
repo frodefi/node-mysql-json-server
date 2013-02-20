@@ -55,7 +55,7 @@ handleDisconnect(connection);
 
 
 exports.getTranslations = function getTanslations(data) {
-  var query = connection.query('SELECT * FROM Translations WHERE Dictionary = ? AND Id >= ? LIMIT ?;', data, function(err, result) {
+  var query = connection.query('SELECT * FROM Translations WHERE Dictionary = ? AND (UserId = 0 OR UserId = ?) AND Id >= ? LIMIT ?;', data, function(err, result) {
     console.log("Ærrår:"+err+"Hir ar te resølts:");
     return fn(null, result[0]);
   });
