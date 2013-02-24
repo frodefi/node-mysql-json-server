@@ -28,7 +28,7 @@ function getTranslationsByWord(req, res) {
   res.send(db.getTranslations({
     Dictionary: req.params.dictionary,
     UserId: req.params.userId, // When a user creates his own or modifies a default translation
-    OriginalTranslationId: req.params.originalTranslationId, // then these 2 columns are used
+    OriginalTranslationId: req.params.originalTranslationId, // then these 2 columns are u
     FromWord: req.params.fromWord,
     FromDescription: req.params.FromDescription,
     ToWord: req.params.toWord,
