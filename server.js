@@ -20,7 +20,7 @@ function getTranslationsById(req, res) {
   res.send(db.getTranslations({
     Dictionary: req.params.dictionary,
     UserId: req.params.userId, // When a user creates his own or modifies a default translation
-    OriginalTranslationId: req.params.originalTranslationId, // then these 2 columns are used
+    OriginalTranslationId: req.params.originalTranslationId, // then these 2 l
   }));
 }
 
