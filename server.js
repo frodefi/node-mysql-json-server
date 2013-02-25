@@ -17,35 +17,33 @@ server.listen(8080, function() {
 });
 
 function getTranslationsById(req, res) {
-  res.send(db.getTranslations({
-    Dictionary: req.params.dictionary,
-    UserId: req.params.userId, // When a user creates his own or modifies a default translation
-    OriginalTranslationId: req.params.originalTranslationId, // then these 2 liene
-  }));
+  res.send(db.getTranslations([
+    req.params.id,
+    req.params.userId,
+    req.params.dictionary, 
+    req.params.rows
+  ]));
 }
 
 function getTranslationsByWord(req, res) {
   res.send(db.getTranslations({
-    Dictionary: req.params.dictionary,
-    UserId: req.params.userId, // When a user creates his own or modifies a default translation
-    OriginalTranslationId: req.params.originalTranslationId, // then these 2 columns are u
-    FromWord: req.params.fromWord,
-    FromDescription: req.params.FromDescription,
-    ToWord: req.params.toWord,
-    ToDescription: req.params.toDescription
+    req.params.userId,
+    req.params.dictionary,
+    req.params.word,
+    req.params.includeDescription
   }));
 }
 
 function createTranslation(req, res) {
-  res.send(db.getTranslations({
-    Dictionary: req.params.dictionary,
-    UserId: req.params.userId, // When a user creates his own or modifies a default translation
-    OriginalTranslationId: req.params.originalTranslationId, // then these 2 columns are used
-    FromWord: req.params.fromWord,
-    FromDescription: req.params.FromDescription,
-    ToWord: req.params.toWord,
-    ToDescription: req.params.toDescription
-  }));
+  res.send(db.getTranslations([
+    req.params.userId,
+    req.params.dictionary,
+    req.params.originalTranslationId,
+    req.params.fromWord,
+    req.params.FromDescription,
+    req.params.toWord,
+    req.params.toDescription
+  ]));
 }
 
 function updateTranslation(req, res, next) {
