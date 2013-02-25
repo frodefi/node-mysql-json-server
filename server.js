@@ -7,7 +7,7 @@ var server = restify.createServer({
   name: 'json-server'
 });
 
-server.get('/vocababe/get/:id/:rows', getTranslations;
+server.get('/vocababe/get/:id/:rows', getTranslations);
 server.post('/vocababe/new', createTranslation);
 server.put('/vocababe/edit', updateTranslation);
 server.del('/vocababe/delete', deleteTranslation);
@@ -26,12 +26,12 @@ function getTranslationsById(req, res) {
 }
 
 function getTranslationsByWord(req, res) {
-  res.send(db.getTranslations({
+  res.send(db.getTranslations([
     req.params.userId,
     req.params.dictionary,
     req.params.word,
     req.params.includeDescription
-  }));
+  ]));
 }
 
 function createTranslation(req, res) {

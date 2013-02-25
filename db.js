@@ -57,45 +57,45 @@ handleDisconnect(connection);
 exports.getTranslationsById = function getTanslations(data) {
   var query = connection.query('SELECT * FROM Translations WHERE  Id >= ? AND Dictionary = ? AND (UserId = 0 OR UserId = ?) LIMIT ?;', data, function(err, result) {
     console.log("Ærrår:"+err+"Hir ar te resølts:");
-    return fn(null, result[0]);
+    return result;
   });
   console.log(query.sql);
-}
+};
 
 exports.getTranslationsByWord = function getTanslations(data) {
   var query = connection.query('SELECT * FROM Translations WHERE Dictionary = ? AND (UserId = 0 OR UserId = ?) AND Id >= ? LIMIT ?;', data, function(err, result) {
     console.log("Ærrår:"+err+"Hir ar te resølts:");
-    return fn(null, result[0]);
+    return result;
   });
   console.log(query.sql);
-}
+};
 
 exports.createTranslation = function createTranslation(data) {
   var translation = {
-    Dictionary: data[0],
-    UserId: data[1],
-    OriginalTranslationId: data[2],
-    FromWord: data[3],
-    FromDescription: data[4],
-    ToWord: data[5],
-    FromDescription: data[6],
-  }
-  var query = connection.query('INSERT INTO Translations SET ?', translation, function(err, result) {
+    Dictionary:data[0],
+    UserId:data[1],
+    OriginalTranslationId:data[2],
+    FromWord:data[3],
+    FromDescription:data[4],
+    ToWord:data[5],
+    ToDescription:data[6]
+  };
+  var query = connection.query('INSERT INTO Translations SET ?', translation, function (err, result) {
   });
   console.log(query.sql);
-}
+};
 
 exports.updateTranslation = function createTranslation(data) {
-}
+};
 
 exports.deleteTranslation = function createTranslation(id) {
-}
+};
 
 exports.createUser = function createUser(username, password, email) {
   var query = connection.query('INSERT INTO Users (username, password, email) VALUES (?,SHA1(?),?)', [username, password, email], function(err, result) {
   });
   console.log(query.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
-}
+};
 
 exports.findUser = function findUser(username, password, fn) {
   var query = connection.query('SELECT id, username, password FROM Users WHERE username = ? AND password = SHA1(?);', [username, password], function(err, result) {
@@ -103,4 +103,4 @@ exports.findUser = function findUser(username, password, fn) {
     return fn(null, result[0]);
   });
   console.log(query.sql);
-}
+};
