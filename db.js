@@ -54,23 +54,15 @@ handleDisconnect(connection);
 // CREATE TABLE Users ()
 
 
-exports.getTranslationsById = function getTanslations(data) {
-  var query = connection.query('SELECT * FROM Translations WHERE  Id >= ? AND Dictionary = ? AND (UserId = 0 OR UserId = ?) LIMIT ?;', data, function(err, result) {
-    console.log("Ærrår:"+err+"Hir ar te resølts:");
-    return result;
-  });
-  console.log(query.sql);
+exports.getTranslationsById = function (data, callback) {
+  connection.query('SELECT * FROM Translations WHERE  Id >= ? AND (UserId = 0 OR UserId = ?) AND Dictionary = ? LIMIT ?;', data, callback);
 };
 
-exports.getTranslationsByWord = function getTanslations(data) {
-  var query = connection.query('SELECT * FROM Translations WHERE Dictionary = ? AND (UserId = 0 OR UserId = ?) AND Id >= ? LIMIT ?;', data, function(err, result) {
-    console.log("Ærrår:"+err+"Hir ar te resølts:");
-    return result;
-  });
-  console.log(query.sql);
+exports.getTranslationsByWord = function (data) {
+//  connection.query('SELECT * FROM Translations WHERE Dictionary = ? AND (UserId = 0 OR UserId = ?) AND Id >= ? LIMIT ?;', data, callback);
 };
 
-exports.createTranslation = function createTranslation(data) {
+exports.createTranslation = function (data, callback) {
   var translation = {
     Dictionary:data[0],
     UserId:data[1],
@@ -80,15 +72,13 @@ exports.createTranslation = function createTranslation(data) {
     ToWord:data[5],
     ToDescription:data[6]
   };
-  var query = connection.query('INSERT INTO Translations SET ?', translation, function (err, result) {
-  });
-  console.log(query.sql);
+  connection.query('INSERT INTO Translations SET ?', translation, callback);
 };
 
-exports.updateTranslation = function createTranslation(data) {
+exports.updateTranslation = function (data) {
 };
 
-exports.deleteTranslation = function createTranslation(id) {
+exports.deleteTranslation = function (id) {
 };
 
 exports.createUser = function createUser(username, password, email) {
