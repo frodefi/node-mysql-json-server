@@ -54,6 +54,9 @@ handleDisconnect(connection);
 //
 // CREATE TABLE Users ()
 
+// TODO: 1) write comments/docs properly 2)how to return success only 3)put key names in first row or delete entirely
+// 4) Where to do validation 5) and more...
+
 exports.getTranslationsByDictionary = function (data, callback) {
   var queryData = [
     { UserId              : data[0] },
