@@ -48,37 +48,66 @@ handleDisconnect(connection);
 //    FromDescription text,
 //    ToWord tinytext,
 //    ToDescription text,
+//    LastChanged timestamp,
 //    PRIMARY KEY(Id)
 // )
 //
 // CREATE TABLE Users ()
 
-
-exports.getTranslationsById = function (data, callback) {
-  connection.query('SELECT * FROM Translations WHERE  Id >= ? AND (UserId = 0 OR UserId = ?) AND Dictionary = ? LIMIT ?;', data, callback);
+exports.getTranslationsByDictionary = function (data, callback) {
+  var queryData = [
+    { UserId              : data[0] },
+    { Dictionary          : data[1] }
+  ];
+  var query = connection.query('SELECT * FROM Translations WHERE (UserId = 0 OR ?) AND ?;', queryData, callback);
+  console.log(query.sql);
 };
 
-exports.getTranslationsByWord = function (data) {
-//  connection.query('SELECT * FROM Translations WHERE Dictionary = ? AND (UserId = 0 OR UserId = ?) AND Id >= ? LIMIT ?;', data, callback);
+exports.getTranslationsByDate = function (data, callback) {
+  var queryData = [
+    { UserId              : data[0] },
+    { Dictionary          : data[1] },
+    data[2] // LastChanged
+  ];
+  var query = connection.query('SELECT * FROM Translations WHERE (UserId = 0 OR ?) AND ? AND LastChanged > ?;', queryData, callback);
+  console.log(query.sql);
 };
 
 exports.createTranslation = function (data, callback) {
-  var translation = {
-    Dictionary:data[0],
-    UserId:data[1],
-    OriginalTranslationId:data[2],
-    FromWord:data[3],
-    FromDescription:data[4],
-    ToWord:data[5],
-    ToDescription:data[6]
-  };
-  connection.query('INSERT INTO Translations SET ?', translation, callback);
+  var queryData = {
+    Dictionary            : data[0],
+    UserId                : data[1],
+    FromWord              : data[2],
+    FromDescription       : data[3],
+    ToWord                : data[4],
+    ToDescription         : data[5],
+    OriginalTranslationId : data[6]
+  }
+  connection.query('INSERT INTO Translations SET ?', queryData, callback);
 };
 
-exports.updateTranslation = function (data) {
+exports.updateTranslation = function (data, callback) {
+  var queryData = [
+    {
+      FromWord            : data[0],
+      FromDescription     : data[1],
+      ToWord              : data[2],
+      ToDescription       : data[3]
+    },
+    { UserId              : data[4] },
+    { Id                  : data[5] }
+  ];
+  var query = connection.query('UPDATE Translations SET ? WHERE ? AND ?', queryData, callback);
+  console.log(query.sql);
 };
 
-exports.deleteTranslation = function (id) {
+exports.deleteTranslation = function (data, callback) {
+  var queryData = [
+    { UserId              : data[0] },
+    { Id                  : data[1] }
+  ];
+  var query = connection.query('DELETE FROM Translations WHERE ? AND ?;', queryData, callback);
+  console.log(query.sql);
 };
 
 exports.createUser = function createUser(username, password, email) {
