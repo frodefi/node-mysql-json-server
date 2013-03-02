@@ -1,4 +1,4 @@
-json-server
+node-mysql-json-server
 ===========
 
-A json-server with authentication (featuring NodeJs, Restify, Passport and MySQL)
+Testing setting up a json-server with Restify (Express) and node-mysql.

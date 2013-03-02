@@ -18,6 +18,7 @@ connection.connect(function(err) {
   }
 });
 
+
 function handleDisconnect(connection) {
   connection.on('error', function(err) {
     if (!err.fatal) {
@@ -38,7 +39,7 @@ function handleDisconnect(connection) {
 
 handleDisconnect(connection);
 
-// The following database tables are used:
+// Testing with a table representing a simple dictionary:
 // CREATE TABLE Translations (
 //    Id int UNSIGNED NOT NULL AUTO_INCREMENT,
 //    Dictionary mediumint UNSIGNED,
@@ -52,10 +53,6 @@ handleDisconnect(connection);
 //    PRIMARY KEY(Id)
 // )
 //
-// CREATE TABLE Users ()
-
-// TODO: 1) write comments/docs properly 2)how to return success only 3)put key names in first row or delete entirely
-// 4) Where to do validation 5) Authentication 6) and more...
 
 exports.getTranslationsByDictionary = function (data, callback) {
   var queryData = [
@@ -110,19 +107,5 @@ exports.deleteTranslation = function (data, callback) {
     { Id                  : data[1] }
   ];
   var query = connection.query('DELETE FROM Translations WHERE ? AND ?;', queryData, callback);
-  console.log(query.sql);
-};
-
-exports.createUser = function createUser(username, password, email) {
-  var query = connection.query('INSERT INTO Users (username, password, email) VALUES (?,SHA1(?),?)', [username, password, email], function(err, result) {
-  });
-  console.log(query.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
-};
-
-exports.findUser = function findUser(username, password, fn) {
-  var query = connection.query('SELECT id, username, password FROM Users WHERE username = ? AND password = SHA1(?);', [username, password], function(err, result) {
-    console.log("Ærrår:"+err+"Hir ar te resølts:"+result[0].username);
-    return fn(null, result[0]);
-  });
   console.log(query.sql);
 };
