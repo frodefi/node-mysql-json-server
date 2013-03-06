@@ -13,7 +13,7 @@ server.use(restify.queryParser());
 server.get('/get', getTranslations);
 server.post('/create', createTranslation); // curl --data "userId=1&dictionary=1&originalTranslationId=0&fromWord=Fisk&fromDescription=&toWord=Zivis&toDescription=" localhost:8080/vocababe/create
 server.put('/update', updateTranslation);
-server.del('/delete', deleteTranslation);
+server.delete('/delete', deleteTranslation);
 
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
