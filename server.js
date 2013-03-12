@@ -10,10 +10,10 @@ var server = restify.createServer({
 server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
-server.get('/get', getTranslations);
-server.post('/create', createTranslation); // curl --data "userId=1&dictionary=1&originalTranslationId=0&fromWord=Fisk&fromDescription=&toWord=Zivis&toDescription=" localhost:8080/vocababe/create
-server.put('/update', updateTranslation);
-server.del('/delete', deleteTranslation);
+server.get('/get', getTranslations); // curl -i http://localhost:8080/get
+server.post('/create', createTranslation); // curl -i -X POST -H 'Content-Type: application/json' -d  "userId=1&dictionary=1&originalTranslationId=0&fromWord=Fisk&fromDescription=&toWord=Zivis&toDescription=" localhost:8080/create
+server.put('/update', updateTranslation); // curl -i -X PUT -H 'Content-Type: application/json' -d  "userId=1&dictionary=1&originalTranslationId=0&fromWord=Fisk&fromDescription=&toWord=Zivis&toDescription=" localhost:8080/update
+server.del('/delete', deleteTranslation); // curl -i -X DELETE http://localhost:8080/delete/51374299e669481c48a25c8c
 
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
@@ -25,7 +25,7 @@ function callback (err, result) {
 
 function getTranslations(req, res) {
   var fields = [
-    req.params.userId,
+    req.params.userId, // The user login is not implemented, so just give it an id of your liking for now
     req.params.dictionary,
     req.params.lastChanged
   ];
