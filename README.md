@@ -12,7 +12,8 @@ This json-server saves notes to a database.
 
 I also did a similar test with mongo: https://github.com/frodefi/node-mongodb-json-server
 
-I will next do a test using socket.io, then I will also include authentication.
-If you don't want to use socket.io, you can easily take out the authentication part and put it in here.
+I will next do a test using mongodb and socket.io, then I will also include authentication.
+If you don't want to use socket.io, you can take out the authentication part and put it in here.
+See https://github.com/frodefi/node-mongodb-socketio-server
 
 Please feel free to use this code as you like :)
