@@ -3,6 +3,8 @@ node-mysql-json-server
 
 Testing setting up a json-server with Node, Restify and node-mysql.
 
+You can make a dicitonary, so save your translations.
+
 Restify can very easily be replaced with Express, maybe just by changing the require-module to use Express.
 See here the reason why you might want to use Restify: http://mcavage.github.com/node-restify/
 
